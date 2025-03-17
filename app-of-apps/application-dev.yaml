@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: codegen-remote-mar17-1-app
+  namespace: ai-rhdh
+  finalizers: ["resources-finalizer.argocd.argoproj.io"]
+spec:
+  project: default
+  source:
+    path: ./components/codegen-remote-mar17-1/overlays/development
+    repoURL: https://github.com/redhat-appstudio-mjf/codegen-remote-mar17-1-gitops.git
+    targetRevision: main
+  destination:
+    server: https://api.mfaisal-mar17.devcluster.openshift.com:6443
+    namespace: mar17-1
+  syncPolicy:
+    managedNamespaceMetadata:
+      labels:
+        argocd.argoproj.io/managed-by: ai-rhdh
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=true

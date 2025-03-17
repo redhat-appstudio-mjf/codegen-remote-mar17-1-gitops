@@ -1,0 +1,12 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: codegen-remote-mar17-1-dsp-job-rolebinding
+subjects:
+  - kind: ServiceAccount
+    name: codegen-remote-mar17-1-dsp-job
+    namespace: mar17-1
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: codegen-remote-mar17-1-dsp-job-role
